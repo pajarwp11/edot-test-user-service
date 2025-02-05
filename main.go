@@ -19,8 +19,8 @@ func main() {
 	userRepository := userRepo.NewUserRepository(mysql.MySQL)
 	userUsecase := userUsecase.NewUserUsecase(userRepository)
 	userHandler := userHandler.NewUserHandler(userUsecase)
-	router.HandleFunc("user/register", userHandler.Register).Methods(http.MethodPost)
-	router.HandleFunc("user/login", userHandler.Login).Methods(http.MethodPost)
+	router.HandleFunc("/user/register", userHandler.Register).Methods(http.MethodPost)
+	router.HandleFunc("/user/login", userHandler.Login).Methods(http.MethodPost)
 
 	fmt.Println("server is running")
 	err := http.ListenAndServe(":8000", router)
