@@ -24,17 +24,21 @@ func NewUserUsecase(userRepo UserRepository) *UserUsecase {
 	}
 }
 
-func (u *UserUsecase) Register(user *user.User) error {
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
-	user.Password = string(hashedPassword)
+func (u *UserUsecase) Register(userRegister *user.RegisterRequest) error {
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(userRegister.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return err
 	}
-	err = u.userRepo.Insert(user)
+	userData := user.User{
+		Email:    userRegister.Email,
+		Phone:    userRegister.Phone,
+		Password: string(hashedPassword),
+	}
+	err = u.userRepo.Insert(&userData)
 	return err
 }
 
-func (u *UserUsecase) Login(userLogin *user.UserLogin) (string, error) {
+func (u *UserUsecase) Login(userLogin *user.LoginRequest) (string, error) {
 	user, err := u.userRepo.GetByEmailOrPhone(userLogin.Identification, userLogin.Identification)
 	if err != nil {
 		return "", err

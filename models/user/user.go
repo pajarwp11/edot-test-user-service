@@ -7,7 +7,13 @@ type User struct {
 	Password string `db:"password"`
 }
 
-type UserLogin struct {
+type LoginRequest struct {
 	Identification string `json:"identification"`
 	Password       string `json:"password"`
+}
+
+type RegisterRequest struct {
+	Email    string `json:"email"`
+	Phone    string `json:"phone"`
+	Password string `json:"password"`
 }
