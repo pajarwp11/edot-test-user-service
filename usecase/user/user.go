@@ -57,5 +57,5 @@ func generateJwt(userId int) (string, error) {
 		"iat":     time.Now().Unix(),
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString("myjwtsecret")
+	return token.SignedString([]byte("myjwtsecret"))
 }
