@@ -90,7 +90,7 @@ func (u *UserHandler) Login(w http.ResponseWriter, req *http.Request) {
 		json.NewEncoder(w).Encode(response)
 		return
 	}
-	w.WriteHeader(http.StatusCreated)
+	w.WriteHeader(http.StatusOK)
 	response.Message = "login success"
 	response.Data = map[string]interface{}{
 		"token": token,
