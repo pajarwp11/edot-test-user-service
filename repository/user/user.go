@@ -23,6 +23,6 @@ func (u *UserRepository) Insert(user *user.User) error {
 
 func (u *UserRepository) GetByEmailOrPhone(email string, phone string) (*user.User, error) {
 	user := user.User{}
-	err := u.mysql.Get(&user, "SELECT email,phone,password FROM users WHERE email=? OR phone=?", email, phone)
+	err := u.mysql.Get(&user, "SELECT id,email,phone,password FROM users WHERE email=? OR phone=?", email, phone)
 	return &user, err
 }
